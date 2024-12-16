@@ -1,0 +1,79 @@
+<div class="login-wrapper">
+    <nz-spin nzTip="Signing In" [nzSpinning]="loading" nzSize="large">
+        <div class="login-form">
+            <form nz-form nzLayout="vertical" [formGroup]="signinForm" (ngSubmit)="login()">
+                <div class="logo">
+                    <img [src]="Images.FAVICON" alt="Logo">
+                </div>
+                <div *ngIf="errorMessage">
+                    <div class="error">
+                        <span><i class="bi bi-exclamation-circle error-icon"></i> {{ errorMessage }}</span>
+                    </div>
+                </div>
+                <nz-form-item>
+                    <nz-form-label nzFor="name">Email</nz-form-label>
+                    <nz-form-control [nzErrorTip]="userEmailErrorTip" id="email">
+                        <nz-input-group nzPrefixIcon="user">
+                            <input type="text" nz-input placeholder="Email" formControlName="email" />
+                        </nz-input-group>
+                    </nz-form-control>
+                    <ng-template #userEmailErrorTip let-control>
+                        <ng-container *ngIf="control.hasError('required')">
+                            <div class="error-message">
+                                <i class="bi bi-exclamation-circle error-icon"></i>
+                                User email is required.
+                            </div>
+                        </ng-container>
+                        <ng-container *ngIf="control.hasError('email') || control.hasError('pattern')">
+                            <div class="error-message">
+                                <i class="bi bi-exclamation-circle error-icon"></i>
+                                User email is invalid. User email must be valid gmail.
+                            </div>
+                        </ng-container>
+                    </ng-template>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label nzFor="name">Password</nz-form-label>
+                    <nz-form-control [nzErrorTip]="passwordErrorTip" id="password">
+                        <nz-input-group nzPrefixIcon="lock" [nzSuffix]="suffixTemplate">
+                            <input [type]="passwordVisible ? 'text' : 'password'" nz-input placeholder="Password" formControlName="password" />
+                            <ng-template #suffixTemplate>
+                                <span nz-icon [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
+                                    (click)="passwordVisible = !passwordVisible" id="passwordVisibleToggle"></span>
+                            </ng-template>
+                        </nz-input-group>
+                        <ng-template #passwordErrorTip let-control>
+                            <ng-container *ngIf="control.hasError('required')">
+                                <div class="error-message">
+                                    <i class="bi bi-exclamation-circle error-icon"></i>
+                                    Password is required.
+                                </div>
+                            </ng-container>
+                            <ng-container *ngIf="control.hasError('minlength')">
+                                <div class="error-message">
+                                    <i class="bi bi-exclamation-circle error-icon"></i>
+                                    Password must be at least 6 characters long.
+                                </div>
+                            </ng-container>
+                        </ng-template>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item>
+                    <button nz-button nzType="primary" nzBlock class="mt-2">
+                        Sign In
+                    </button>
+                </nz-form-item>
+            </form>
+            <nz-divider nzPlain nzText="OR"></nz-divider>
+            <nz-form-item [nzJustify]="'center'">
+                <a class="login-form-forgot" routerLink="/forgot-password">Forgot password?</a>
+            </nz-form-item>
+
+            <nz-form-item [nzJustify]="'center'" id="sign-up">
+                <span>Don't have an account? &nbsp;</span>
+                <a class="login-form-forgot" routerLink="/sign-up">Sign Up</a>
+            </nz-form-item>
+        </div>
+    </nz-spin>
+</div>

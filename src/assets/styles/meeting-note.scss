@@ -1,0 +1,76 @@
+//file preview modal
+
+.file-preview-model-content {
+  max-height: 400px;
+  overflow-y: auto;
+
+  pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+}
+
+// meeting note list
+
+.metting-note-empty-wrapper {
+  width: 100%;
+  min-height: 40vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.meeting-note-list-file-icon {
+  font-size: 30px;
+  color: $primary-color;
+}
+
+.history-modal-wrapper {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+// meeting note submit prj wrapper
+.note-submit-prj-wrapper {
+  .project-wrapper {
+    border-bottom: 1px solid #c7c7c7;
+    // border-radius: 5px;
+    padding: 10px;
+
+    .project-name {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .project-details {
+      font-size: 14px;
+      color: #595959;
+      margin: 10px 0px;
+
+      .note-actions {
+        font-size: 14px;
+        display: inline-flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 35px;
+        margin-left: 13px;
+        cursor: pointer;
+
+        .edit-icon,
+        .delete-icon {
+          color: #ababab;
+        }
+
+        .edit-icon:hover,
+        .delete-icon:hover {
+          color: #595959;
+        }
+      }
+
+      li {
+        white-space: pre-line;
+      }
+    }
+  }
+}

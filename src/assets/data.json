@@ -1,0 +1,284 @@
+{
+    "teams": [
+        {
+            "id": "XYZ_001",
+            "name": "John Doe",
+            "displayName": "John Doe's Team",
+            "members": [
+                {
+                    "id": "XYZ_001",
+                    "teamId": "XYZ_001",
+                    "name": "John Doe",
+                    "isTeamLeader": true,
+                    "description": "John Doe's Team"
+                },
+                {
+                    "id": "ABC_002",
+                    "teamId": "XYZ_001",
+                    "name": "Alice Brown",
+                    "isTeamLeader": false,
+                    "description": "John Doe's Team"
+                },
+                {
+                    "id": "DEF_003",
+                    "teamId": "XYZ_001",
+                    "name": "David White",
+                    "isTeamLeader": false,
+                    "description": "John Doe's Team"
+                },
+                {
+                    "id": "GHI_004",
+                    "teamId": "XYZ_001",
+                    "name": "Grace Green",
+                    "isTeamLeader": false,
+                    "description": "John Doe's Team"
+                }
+            ],
+            "leader": "John Doe"
+        },
+        {
+            "id": "LMN_007",
+            "name": "Sophia Carter",
+            "displayName": "Sophia Carter's Team",
+            "members": [
+                {
+                    "id": "LMN_023",
+                    "teamId": "LMN_007",
+                    "name": "Sophia Carter",
+                    "isTeamLeader": true,
+                    "description": "Sophia Carter's Team"
+                },
+                {
+                    "id": "JKL_024",
+                    "teamId": "LMN_007",
+                    "name": "James Lee",
+                    "isTeamLeader": false,
+                    "description": "Sophia Carter's Team"
+                }
+            ],
+            "leader": "Sophia Carter"
+        },
+        {
+            "id": "QRS_008",
+            "name": "Emily Davis",
+            "displayName": "Emily Davis's Team",
+            "members": [
+                {
+                    "id": "QRS_025",
+                    "teamId": "QRS_008",
+                    "name": "Emily Davis",
+                    "isTeamLeader": true,
+                    "description": "Emily Davis's Team"
+                },
+                {
+                    "id": "TUV_026",
+                    "teamId": "QRS_008",
+                    "name": "Taylor Evans",
+                    "isTeamLeader": false,
+                    "description": "Emily Davis's Team"
+                }
+            ],
+            "leader": "Emily Davis"
+        },
+        {
+            "id": "WXY_009",
+            "name": "Michael Johnson",
+            "displayName": "Michael Johnson's Team",
+            "members": [
+                {
+                    "id": "WXY_027",
+                    "teamId": "WXY_009",
+                    "name": "Michael Johnson",
+                    "isTeamLeader": true,
+                    "description": "Michael Johnson's Team"
+                },
+                {
+                    "id": "ABC_028",
+                    "teamId": "WXY_009",
+                    "name": "Anna Lee",
+                    "isTeamLeader": false,
+                    "description": "Michael Johnson's Team"
+                },
+                {
+                    "id": "XYZ_029",
+                    "teamId": "WXY_009",
+                    "name": "Zoe Kim",
+                    "isTeamLeader": false,
+                    "description": "Michael Johnson's Team"
+                }
+            ],
+            "leader": "Michael Johnson"
+        },
+        {
+            "id": "ZKW_009",
+            "name": "Zin Ko Win",
+            "displayName": "Zin Ko Win's Team",
+            "members": [
+                {
+                    "id": "ZKW_027",
+                    "teamId": "ZKW_009",
+                    "name": "Zin Ko Win",
+                    "isTeamLeader": true,
+                    "description": "Zin Ko Win's Team"
+                },
+                {
+                    "id": "SZ_028",
+                    "teamId": "ZKW_009",
+                    "name": "Saw Zeya",
+                    "isTeamLeader": false,
+                    "description": "Zin Ko Win's Team"
+                },
+                {
+                    "id": "TM_029",
+                    "teamId": "ZKW_009",
+                    "name": "Thuzar Myint",
+                    "isTeamLeader": false,
+                    "description": "Zin Ko Win's Team"
+                }
+            ],
+            "leader": "Zin Ko Win"
+        }
+    ],
+    "members": [
+        {
+            "id": "XYZ_001",
+            "teamId": "XYZ_001",
+            "name": "John Doe",
+            "isTeamLeader": true,
+            "description": "John Doe's Team"
+        },
+        {
+            "id": "ABC_002",
+            "teamId": "XYZ_001",
+            "name": "Alice Brown",
+            "isTeamLeader": false,
+            "description": "John Doe's Team"
+        },
+        {
+            "id": "DEF_003",
+            "teamId": "XYZ_001",
+            "name": "David White",
+            "isTeamLeader": false,
+            "description": "John Doe's Team"
+        },
+        {
+            "id": "GHI_004",
+            "teamId": "XYZ_001",
+            "name": "Grace Green",
+            "isTeamLeader": false,
+            "description": "John Doe's Team"
+        },
+        {
+            "id": "LMN_023",
+            "teamId": "LMN_007",
+            "name": "Sophia Carter",
+            "isTeamLeader": true,
+            "description": "Sophia Carter's Team"
+        },
+        {
+            "id": "JKL_024",
+            "teamId": "LMN_007",
+            "name": "James Lee",
+            "isTeamLeader": false,
+            "description": "Sophia Carter's Team"
+        },
+        {
+            "id": "QRS_025",
+            "teamId": "QRS_008",
+            "name": "Emily Davis",
+            "isTeamLeader": true,
+            "description": "Emily Davis's Team"
+        },
+        {
+            "id": "TUV_026",
+            "teamId": "QRS_008",
+            "name": "Taylor Evans",
+            "isTeamLeader": false,
+            "description": "Emily Davis's Team"
+        },
+        {
+            "id": "WXY_027",
+            "teamId": "WXY_009",
+            "name": "Michael Johnson",
+            "isTeamLeader": true,
+            "description": "Michael Johnson's Team"
+        },
+        {
+            "id": "ABC_028",
+            "teamId": "WXY_009",
+            "name": "Anna Lee",
+            "isTeamLeader": false,
+            "description": "Michael Johnson's Team"
+        },
+        {
+            "id": "XYZ_029",
+            "teamId": "WXY_009",
+            "name": "Zoe Kim",
+            "isTeamLeader": false,
+            "description": "Michael Johnson's Team"
+        },
+        {
+            "id": "ZKW_027",
+            "teamId": "ZKW_009",
+            "name": "Zin Ko Win",
+            "isTeamLeader": true,
+            "description": "Zin Ko Win's Team"
+        },
+        {
+            "id": "NZ_028",
+            "teamId": "ZKW_009",
+            "name": "Nyi Zeya",
+            "isTeamLeader": false,
+            "description": "Zin Ko Win's Team"
+        },
+        {
+            "id": "TM_029",
+            "teamId": "ZKW_009",
+            "name": "Thuzar Myint",
+            "isTeamLeader": false,
+            "description": "Zin Ko Win's Team"
+        }
+    ],
+    "projects": [
+        {
+            "id": 1,
+            "label": "Project Management System",
+            "value": "Project Management System"
+        },
+        {
+            "id": 2,
+            "label": "Employee Attendance System",
+            "value": "Employee Attendance System"
+        },
+        {
+            "id": 3,
+            "label": "Online Shopping Portal",
+            "value": "Online Shopping Portal"
+        },
+        {
+            "id": 4,
+            "label": "Customer Support Chatbot",
+            "value": "Customer Support Chatbot"
+        },
+        {
+            "id": 5,
+            "label": "Financial Tracker App",
+            "value": "Financial Tracker App"
+        },
+        {
+            "id": 6,
+            "label": "Task Automation Tool",
+            "value": "Task Automation Tool"
+        },
+        {
+            "id": 7,
+            "label": "Personal Blog Website",
+            "value": "Personal Blog Website"
+        },
+        {
+            "id": 8,
+            "label": "Event Management System",
+            "value": "Event Management System"
+        }
+    ]
+}

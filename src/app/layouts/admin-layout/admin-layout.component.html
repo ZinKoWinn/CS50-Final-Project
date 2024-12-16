@@ -1,0 +1,57 @@
+<nz-layout>
+  <nz-header>
+    <nav class="navbar navbar-expand-md navbar-light bg-light">
+      <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
+          aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+          <div class="logo">
+            <img src="../../../assets/images/meetingnote.png" alt="">
+          </div>
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item" *ngIf="isAdmin && isNotSuperAdmin">
+              <a class="nav-link" routerLink="/admin/meeting-note" routerLinkActive="active">Meeting Note</a>
+            </li>
+            <li class="nav-item" *ngIf="isAdmin">
+              <a class="nav-link" routerLink="/admin/users" routerLinkActive="active">Users</a>
+            </li>
+            <li class="nav-item" *ngIf="isAdmin">
+              <a class="nav-link" routerLink="/admin/teams" routerLinkActive="active">Teams</a>
+            </li>
+            <li class="nav-item" *ngIf="isAdmin">
+              <a class="nav-link" routerLink="/admin/members" routerLinkActive="active">Members</a>
+            </li>
+            <li class="nav-item" *ngIf="isAdmin">
+              <a class="nav-link" routerLink="/admin/projects" routerLinkActive="active">Projects</a>
+            </li>
+            <li class="nav-item" *ngIf="isAdmin">
+              <a class="nav-link" routerLink="/admin/setting" routerLinkActive="active">Setting</a>
+            </li>
+          </ul>
+          <span nz-dropdown [nzDropdownMenu]="menu" class="user-wrapper">
+            <span class="user-icon" *ngIf="isSuperAdmin">
+              <span nz-icon nzType="user" nzTheme="outline"></span>
+            </span>
+            <img *ngIf="isNotSuperAdmin" [src]="imageService.getProfileImage(authInfo?.user?.name)" alt="" class="user-profile">
+            {{authInfo?.user?.name}}
+            <span nz-icon nzType="down" class="down-icon"></span>
+          </span>
+          <nz-dropdown-menu #menu="nzDropdownMenu">
+            <ul nz-menu nzSelectable>
+              <li nz-menu-item  (click)="showProfile()" *ngIf="isAdmin && isNotSuperAdmin">My Account</li>
+              <li nz-menu-item (click)="logout()">Log Out</li>
+            </ul>
+          </nz-dropdown-menu>
+        </div>
+      </div>
+    </nav>
+  </nz-header>
+  <nz-content>
+    <!-- <div class="inner-content"> -->
+      <router-outlet></router-outlet>
+    <!-- </div> -->
+  </nz-content>
+  <nz-footer>Copyright © 2024 Zin Ko Win</nz-footer>
+</nz-layout>

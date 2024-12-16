@@ -1,0 +1,17 @@
+<div class="metting-note-empty-wrapper" *ngIf="meetingNotes.length === 0">
+    <nz-empty nzNotFoundImage="simple"></nz-empty>
+</div>
+
+<ng-container *ngIf="meetingNotes && meetingNotes.length > 0">
+    <nz-tabset>
+        <nz-tab *ngFor="let note of meetingNotes" [nzTitle]="titleTemplate">
+            <ng-template #titleTemplate>
+                <div>
+                    <i [class]="'bi bi-journal-text'"></i>&nbsp;
+                    {{ formatDateRange(note.id) }}
+                </div>
+            </ng-template>
+            <app-meeting-note-item [meetingNotes]="note.notes"></app-meeting-note-item>
+        </nz-tab>
+    </nz-tabset>
+</ng-container>

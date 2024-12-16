@@ -1,0 +1,122 @@
+.ant-layout-header {
+  line-height: unset;
+  height: auto;
+  padding: 0;
+
+  .ant-dropdown-trigger>.anticon.anticon-down,
+  .ant-dropdown-link>.anticon.anticon-down,
+  .ant-dropdown-button>.anticon.anticon-down {
+    transform: translateY(-2px);
+  }
+
+  button:focus:not(:focus-visible) {
+    box-shadow: none !important;
+  }
+}
+
+.navbar-nav .nav-link.active,
+.navbar-nav .nav-link.show {
+  font-weight: bold;
+  color: $primary-color;
+  border-bottom: 3px solid;
+}
+
+.navbar {
+  background-color: #fff !important;
+  box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.5);
+  z-index: 99;
+  padding: 10px;
+  min-height: 70px;
+}
+
+.collapse .logo {
+  background: #fff;
+  margin: 0px 24px 0px 0;
+  padding: 5px;
+  float: left;
+  width: max-content;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+
+  img {
+    height: 75px;
+    width: 125px;
+  }
+}
+
+.ant-dropdown-trigger {
+  font-size: 14px;
+}
+
+nz-footer {
+  text-align: center;
+}
+
+.navbar-expand-md .navbar-nav .nav-link {
+  padding: 15px;
+  padding-bottom: 7px;
+  font-size: 14px;
+}
+
+.user-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .user-icon {
+    content: "";
+    background-color: #8b0000;
+    border-radius: 50%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    height: 30px;
+    width: 30px;
+    color: #fff;
+    margin-right: 10px;
+  }
+
+  .down-icon {
+    transform: unset;
+    margin-left: 10px;
+  }
+
+  .user-profile {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 7px;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .collapse .logo {
+    margin: 0;
+    width: 100%;
+
+    img {
+      height: 75px;
+      width: 125px;
+    }
+  }
+
+  .show.navbar-collapse {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .navbar-nav {
+    text-align: center;
+    margin: 15px auto;
+    margin-bottom: 20px !important;
+  }
+}
+
+.ant-layout-footer {
+  padding: 10px;
+}

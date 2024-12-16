@@ -1,0 +1,57 @@
+<nz-list [nzLoading]="initLoading" *ngIf="meetingNotes.length > 0; else empty">
+    <ng-container *ngFor="let meetingNote of meetingNotes">
+        <nz-list-item>
+            <nz-list-item-meta [nzAvatar]="avatar">
+                <nz-list-item-meta-title>
+                    <div class="title"><b>{{ formatDateRange(meetingNote?.id) }}</b></div>
+                </nz-list-item-meta-title>
+                <nz-list-item-meta-description>
+                    {{ timeStampToDate(meetingNote) | date:'MMMM dd, y, h:mm:ss a' }}
+                </nz-list-item-meta-description>
+            </nz-list-item-meta>
+            <ng-template #avatar>
+                <span nz-icon nzType="file-text" nzTheme="outline" class="meeting-note-list-file-icon"></span>
+            </ng-template>
+            <ul nz-list-item-actions>
+                <ng-container *ngIf="authorizeService.isAdmin">
+                    <nz-list-item-action>
+                        <button nz-button nzType="primary" nzShape="round" (click)="showMeetingNoteHistory(meetingNote)">
+                            <span nz-icon nzType="eye"></span>
+                        </button>
+                    </nz-list-item-action>
+                    <nz-list-item-action>
+                        <button nz-button nzType="primary" nzShape="round" nz-popconfirm
+                            nzPopconfirmTitle="Are you sure you want to delete?" nzOkText="Delete" nzCancelText="Cancel"
+                            [nzIcon]="iconTpl" (nzOnConfirm)="delete(meetingNote)" [disabled]="!meetingNote.isArchived">
+                            <span nz-icon nzType="delete"></span>
+                            <ng-template #iconTpl>
+                                <span nz-icon nzType="question-circle-o" class="primary-color"></span>
+                            </ng-template>
+                        </button>
+                    </nz-list-item-action>
+                </ng-container>
+                <ng-container *ngIf="authorizeService.isTeamLead && !authorizeService.isAdmin">
+                    <nz-list-item-action>
+                        <button nz-button nzType="primary" nzShape="round" (click)="showMeetingNoteHistory(meetingNote)">
+                            <span nz-icon nzType="eye"></span>
+                        </button>
+                    </nz-list-item-action>
+                </ng-container>
+            </ul>
+        </nz-list-item>
+    </ng-container>
+</nz-list>
+
+<ng-template #empty>
+    <nz-list-empty></nz-list-empty>
+</ng-template>
+
+<nz-modal [(nzVisible)]="isShowMeetingNoteHistory" [nzTitle]="formatDateRange(meetingNoteHistory?.id)"
+    (nzOnCancel)="isShowMeetingNoteHistory = false" [nzWidth]="'50%'" [nzMaskClosable]="false">
+    <div class="history-modal-wrapper" *nzModalContent>
+        <app-meeting-note-item [meetingNotes]="meetingNoteHistory.notes"></app-meeting-note-item>
+    </div>
+    <div *nzModalFooter>
+        <button nz-button nzType="default" (click)="isShowMeetingNoteHistory = false">Close</button>
+    </div>
+</nz-modal>

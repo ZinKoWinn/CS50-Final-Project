@@ -1,0 +1,120 @@
+<div class="pending-submissions-wrapper" *ngIf="unsubmittedMembers?.length > 0">
+    <p nz-popover [nzPopoverContent]="unsubmittedAllMembersTemplate" nzPopoverPlacement="rightTop">
+        Pending Submissions: {{unsubmittedMembers?.length || 0}}
+    </p>
+    <ng-template #unsubmittedAllMembersTemplate>
+        <div class="popover-content">
+            <ng-container *ngFor="let team of unSubmittedMembersByTeam | keyvalue">
+                <ng-container *ngIf="getTeamById(team.key) | async as cTeam">
+                    <div class="team-column">
+                        <p class="team-name">{{ cTeam.displayName }}</p>
+                        <ul>
+                            <li *ngFor="let member of team.value | sortBy:'name':'isTeamLeader'">
+                                {{member.name}}
+                            </li>
+                        </ul>
+                    </div>
+                </ng-container>
+            </ng-container>
+        </div>
+    </ng-template>
+</div>
+
+<ng-container *ngIf="meetingNotes">
+    <ng-container *ngFor="let team of meetingNotes | keyvalue">
+        <p class="team-name">{{ 'Team : ' + team.key }}</p>
+        <nz-collapse [nzBordered]="false" class="meeting-note-collapse">
+            <ng-container *ngFor="let tmNote of team.value | sortBy:'teamMemberName':'teamName'">
+                <nz-collapse-panel [nzHeader]="collapseHeader" [nzActive]="false" [nzShowArrow]="false">
+                    <ng-container *ngIf="tmNote">
+                        <ng-container *ngIf="!tmNote.isAbsence">
+                            <ng-container *ngFor="let note of tmNote.notes | sortBy:'projectName'">
+                                <div class="project-wrapper">
+                                    <ng-container *ngIf="note && note.descriptions.length > 0">
+                                        <div class="project-name">{{ note.projectName }}</div>
+                                        <ul class="project-details">
+                                            <li *ngFor="let desc of note.descriptions | sortBy:'value'">
+                                                {{ desc.value }}
+                                            </li>
+                                        </ul>
+                                    </ng-container>
+                                </div>
+                            </ng-container>
+                        </ng-container>
+                        <ng-container *ngIf="tmNote.isAbsence">
+                            <div class="project-wrapper">
+                                <div class="project-name">Absence (The whole week)</div>
+                                <ul class="project-details">
+                                    <li>
+                                        {{ tmNote.absenceReason }}
+                                    </li>
+                                </ul>
+                            </div>
+                        </ng-container>
+                    </ng-container>
+
+                    <nz-empty *ngIf="tmNote && tmNote.notes.length <= 0 && !tmNote.isAbsence"></nz-empty>
+                </nz-collapse-panel>
+                <ng-template #collapseHeader>
+                    <div class="card-header" [class.active]="isSubmitted(tmNote)">
+                        <img [src]="imageService.getProfileImage(tmNote.teamMemberName)" alt="" class="user-profile">
+                        <div class="member-name">{{ tmNote.teamMemberName }}</div>
+                        <div class="status">{{isSubmitted(tmNote) ? 'Submitted' : 'Not Submitted'}}
+                        </div>
+                    </div>
+                </ng-template>
+            </ng-container>
+        </nz-collapse>
+    </ng-container>
+
+    <button *ngIf="!isEmptyDictionary(meetingNotes) && (authorizeService.isTeamLead || authorizeService.isAuditor)"
+        nz-button nzType="primary" nzSize="large" nzShape="circle" (click)="formatNote(meetingNotes)" nz-popover
+        nzPopoverContent="Copy this meeting's notes" class="btn-copy-float">
+        <span nz-icon nzType="copy" nzTheme="outline"></span>
+    </button>
+</ng-container>
+
+<div #weeklyMeetingNote style="display: none;">
+    <div>
+        <h3 style="font-size: 24px; margin: 0; color: #8b0000;">Weekly Meeting Note</h3>
+        <hr>
+        <br>
+        <ng-container *ngFor="let team of meetingNotes | keyvalue">
+            <h6 style="font-size: 18px; margin: 0 0 14px 0; color: #8b0000;"><u>{{ 'Team : ' + team.key }}</u></h6>
+            <ng-container *ngFor="let tmNote of team.value | sortBy:'teamMemberName':'teamName'">
+                <blockquote style="margin-bottom: 15px;">
+                    <p style="font-size: 14px; margin: 0 0 10px 0; color: #1e1e1e;"><b>{{ tmNote.teamMemberName }}</b>
+                    </p>
+                    <ng-container *ngIf="!tmNote.isAbsence">
+                        <ng-container *ngFor="let note of tmNote.notes | sortBy:'projectName'">
+                            <blockquote>
+                                <p style="font-size: 14px; margin: 0 0 10px 0; color: #1e1e1e;"><b>Project Name :</b>
+                                    {{ note.projectName }}</p>
+                                <ul style="font-size: 14px; margin: 0 0 10px 0; color: #1e1e1e;">
+                                    <ng-container *ngFor="let desc of note.descriptions | sortBy:'value'">
+                                        <ng-container *ngFor="let value of desc.value.split('\n')">
+                                            <li style="font-size: 14px; margin: 0 0 4px 0; color: #1e1e1e;" *ngIf="value">
+                                                {{ value }}
+                                            </li>
+                                        </ng-container>
+                                    </ng-container>
+                                </ul>
+                            </blockquote>
+                        </ng-container>
+                    </ng-container>
+                    <ng-container *ngIf="tmNote.isAbsence">
+                        <div class="project-wrapper">
+                            <p style="font-size: 14px; margin: 0 0 10px 0; color: #1e1e1e;"><b>Absence (The whole week)</b>
+                            </p>
+                            <ul style="font-size: 14px; margin: 0 0 10px 0; color: #1e1e1e;">
+                                <li style="font-size: 14px; margin: 0 0 4px 0; color: #1e1e1e;">
+                                    {{ tmNote.absenceReason }}
+                                </li>
+                            </ul>
+                        </div>
+                    </ng-container>
+                </blockquote>
+            </ng-container>
+        </ng-container>
+    </div>
+</div>

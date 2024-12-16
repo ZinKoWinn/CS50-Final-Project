@@ -1,0 +1,89 @@
+<nz-layout>
+    <nz-sider nzCollapsible nzCollapsed nzWidth="250px" nzCollapsedWidth="60">
+        <ul nz-menu nzTheme="dark" nzMode="inline">
+            <li class="user-wrapper-container" *ngIf="!authorizeService.isAdmin">
+                <span class="user-icon user-icon-collapsed" nz-popover [nzPopoverContent]="logoutTemplate">
+                    <img [src]="imageService.getProfileImage(authInfo?.user?.name)" alt="" class="user-profile">
+                    <ng-template #logoutTemplate>
+                        <p class="logout-popover" (click)="showProfile()">My Account</p>
+                        <p class="logout-popover" (click)="logout()">Log Out</p>
+                    </ng-template>
+                </span>
+                <span nz-dropdown [nzDropdownMenu]="userMenu" class="user-wrapper">
+                    {{authInfo?.user?.name}}
+                    <span nz-icon nzType="down" class="down-icon"></span>
+                </span>
+                <nz-dropdown-menu #userMenu="nzDropdownMenu">
+                    <ul nz-menu nzSelectable>
+                        <li nz-menu-item (click)="showProfile()">My Account</li>
+                        <li nz-menu-item (click)="logout()">Log Out</li>
+                    </ul>
+                </nz-dropdown-menu>
+            </li>
+           
+
+            <li nz-submenu nzOpen nzIcon="calendar" nzTitle="This Month" id="monthly">
+                <ul *ngIf="monthlyMeetingNoteHistory.length > 0">
+                    <li nz-menu-item *ngFor="let note of monthlyMeetingNoteHistory" (click)="showWeeklyMeetingNoteHistory(note)">
+                        <span nz-icon nzType="file"></span>
+                        <span>{{note?.submittedDate?.toDate() | date:'fullDate'}}</span>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </nz-sider>
+    <nz-content>
+        <div [class]="authorizeService.isAdmin ? 'inner-content' : 'inner-content-user'">
+            <app-tab-menu [tabs]="tabs" (onSelectChange)="onSelectTabChange($event)"></app-tab-menu>
+
+            <ng-template #myNotesContent>
+                <app-my-note [currentTab]="currentTab"></app-my-note>
+            </ng-template>
+
+            <ng-template #onBehalfOfContent>
+                <app-on-behalf-of-note [currentTab]="currentTab"></app-on-behalf-of-note>
+            </ng-template>
+
+            <ng-template #teamMemberNotesContent>
+                <app-meeting-note-item [meetingNotes]="teamMemberNotes"
+                    [unsubmittedMembers]="unsubmittedTeamMembers"></app-meeting-note-item>
+            </ng-template>
+
+            <ng-template #allMemberNotesContent>
+                <app-meeting-note-item [meetingNotes]="allTeamMemberNotes"
+                    [unsubmittedMembers]="unsubmittedAllMembers"></app-meeting-note-item>
+            </ng-template>
+
+            <ng-template #meetingNoteHistoryContent>
+                <app-meeting-note-history></app-meeting-note-history>
+            </ng-template>
+
+            <ng-template #meetingNoteArchiveContent>
+                <app-meeting-note-archive></app-meeting-note-archive>
+            </ng-template>
+        </div>
+    </nz-content>
+</nz-layout>
+
+<nz-modal [(nzVisible)]="isShowMeetingNoteHistory" [nzTitle]="formatDateRange(weeklyMeetingNote?.id?.split('_')[1])"
+    (nzOnCancel)="isShowMeetingNoteHistory = false" [nzWidth]="'50%'" [nzMaskClosable]="false">
+    <ng-container *nzModalContent>
+        <div class="note-submit-prj-wrapper history-modal-wrapper">
+            <ng-container *ngFor="let note of weeklyMeetingNote?.notes | sortBy:'projectName'">
+                <div class="project-wrapper" *ngIf="note && note.descriptions.length > 0">
+                    <div class="project-name">{{note.projectName}}</div>
+                    <ul class="project-details">
+                        <li *ngFor="let item of note.descriptions">
+                            {{ item.value }}
+                        </li>
+                    </ul>
+                </div>
+            </ng-container>
+        </div>
+    </ng-container>
+    <div *nzModalFooter>
+        <button nz-button nzType="default" (click)="isShowMeetingNoteHistory = false">Close</button>
+        <button nz-button nzType="primary" (click)="formatNoteForSpecificUser(weeklyMeetingNote)"
+            [disabled]="!weeklyMeetingNote">Copy</button>
+    </div>
+</nz-modal>

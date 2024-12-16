@@ -1,0 +1,19 @@
+<div class="login-wrapper">
+  <div class="login-form">
+    <p class="login-header">Thank You for Registering</p>
+    <div class="user-info" *ngIf="authInfo">
+      <p class="text-center">We have sent a confirmation email to <strong>{{authInfo?.user?.email}}</strong>.</p>
+      <p class="text-center">Please check your email and click on the link to verfiy your email address.</p>
+      <button nz-button nzType="default" (click)="sendVerificationMail()">
+        <i class="fas fa-redo-alt"></i> &nbsp;
+        Resend Verification Email
+      </button>
+    </div>
+    <nz-divider nzPlain nzText="OR"></nz-divider>
+    <nz-form-item [nzJustify]="'center'">
+      <span>Go back to &nbsp;</span>
+      <a class="login-form-forgot" routerLink="/sign-in">Sign In</a>
+      <span>&nbsp;?</span>
+    </nz-form-item>
+  </div>
+</div>

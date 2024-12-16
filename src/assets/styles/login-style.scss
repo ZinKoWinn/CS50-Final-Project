@@ -1,0 +1,51 @@
+// @import '../../../assets/styles/colors.scss';
+
+.login-wrapper {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $primary-color;
+}
+
+.login-form {
+  width: 350px;
+  padding: 25px 40px 10px 40px;
+  border-radius: 10px;
+  background: #fff;
+
+  .login-header {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+  .logo {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+  
+    img {
+      width: 150px;
+      // height: 100px;
+    }
+  }
+}
+
+
+.error {
+  color: $error-color;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+// .error .error-icon,
+// .error-message .error-icon {
+//     font-size: 16px;
+//   vertical-align: middle;
+// }
+
+// .error-message {
+//     color: #df3324;
+// }

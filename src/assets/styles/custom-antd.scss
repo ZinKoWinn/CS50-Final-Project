@@ -1,0 +1,88 @@
+//button
+
+.ant-btn:hover{
+  box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.3);
+}
+
+.ant-btn-primary:hover{
+  background-color: #b2231e;
+}
+
+.submit-btn{
+  &.ant-btn .anticon{
+    transform: translateY(-3px);
+  }
+}
+
+// input
+.ant-input-affix-wrapper:not(.ant-input-affix-wrapper-disabled):hover,
+.ant-input:hover {
+  border-color: $border-color;
+}
+
+.ant-input-affix-wrapper:focus,
+.ant-input-affix-wrapper-focused,
+.ant-input:focus,
+.ant-input-focused {
+  border-color: $border-color;
+  box-shadow: 0 0 0 2px rgba($border-color, 0.2);
+}
+
+.ant-input-affix-wrapper > input.ant-input {
+  padding-left: 6px;
+}
+
+// form
+
+.ant-form-vertical .ant-form-item-label,
+.ant-col-24.ant-form-item-label,
+.ant-col-xl-24.ant-form-item-label {
+  padding: 0 0 4px;
+}
+
+.ant-form-item {
+  margin-bottom: 16px;
+}
+.ant-form-item-with-help {
+  margin-bottom: 0;
+}
+
+.ant-form-item-explain,
+.ant-form-item-extra {
+  font-size: 12px;
+}
+.ant-form-item-with-help .ant-form-item-explain {
+  min-height: unset;
+}
+
+//select\
+
+.ant-select:hover .ant-select-clear{
+  margin-top: -9px;
+}
+
+.ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
+  background-color: $primary-color;
+  color: $white-color;
+}
+
+// model
+
+.ant-modal {
+  top: 50px;
+}
+.ant-modal-header {
+  background-color: $primary-color;
+  color: $white-color;
+}
+.ant-modal-title,
+.ant-modal-close-x {
+  color: $white-color;
+}
+.ant-modal-close-x{
+    line-height: 50px;
+}
+
+.ant-picker{
+  width: 100%;
+}

@@ -1,0 +1,56 @@
+<div class="inner-content">
+    <!-- Start Maintenance Section -->
+    <ng-container>
+        <h4>Maintenace</h4>
+        <form nz-form #form="ngForm" nzLayout="vertical">
+            <div class="row">
+                <div class="col-sm-12 col-md-4 col-lg-3">
+                    <nz-form-item>
+                        <nz-form-label nzFor="startDate">Start Date</nz-form-label>
+                        <nz-form-control>
+                            <nz-date-picker name="startDate" nzShowTime nzFormat="dd-MM-yyyy hh:mm:ss a"
+                                [(ngModel)]="generalSetting.maintenance.startDate" [disabled]="!editState"
+                                nzPlaceHolder="Start Date"></nz-date-picker>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div class="col-sm-12 col-md-4 col-lg-3">
+                    <nz-form-item>
+                        <nz-form-label nzFor="endDate">End Date</nz-form-label>
+                        <nz-form-control>
+                            <nz-date-picker name="endDate" nzShowTime nzFormat="dd-MM-yyyy hh:mm:ss a"
+                                [(ngModel)]="generalSetting.maintenance.endDate" [disabled]="!editState"
+                                nzPlaceHolder="End Date"></nz-date-picker>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div class="col-sm-12 col-md-4 col-lg-3">
+                    <nz-form-item>
+                        <nz-form-label nzFor="enabled">Maintenace On/Off</nz-form-label>
+                        <nz-form-control>
+                            <nz-switch name="enabled" [(ngModel)]="generalSetting.maintenance.enabled" [disabled]="!editState"></nz-switch>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div class="col-12">
+                    <nz-form-item>
+                        <nz-form-label nzFor="description">Description</nz-form-label>
+                        <nz-form-control>
+                            <textarea rows="5" nz-input placeholder="Description" name="description"
+                                [(ngModel)]="generalSetting.maintenance.description" [disabled]="!editState" #description="ngModel">
+                            </textarea>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+            </div>
+        </form>
+        <div class="row">
+            <div class="col-12 d-flex justify-content-end">
+                <button nz-button nzType="default" *ngIf="editState" (click)="cancelSave()">Cancel</button>
+                <button nz-button nzType="primary" *ngIf="editState" class="ms-3" (click)="createOrUpdate()">Save</button>
+                <button nz-button nzType="primary" *ngIf="!editState" (click)="edit()">Edit</button>
+            </div>
+        </div>
+    </ng-container>
+    <!-- End Maintenance Section -->
+</div>

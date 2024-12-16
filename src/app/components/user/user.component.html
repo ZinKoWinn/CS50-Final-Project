@@ -1,0 +1,104 @@
+<div class="inner-content">
+    <div class="row justify-content-end">
+        <div class="col-lg-3 col-md-4 col-sm-6 col-12 mb-4">
+            <nz-select nzShowSearch nzPlaceHolder="User Name" [(ngModel)]="searchValue"
+                (ngModelChange)="onInputUser($event)" [nzAllowClear]="true" [nzSuffixIcon]="'search'" class="w-100">
+                <nz-option *ngFor="let user of users | sortBy:'name'" [nzValue]="user.name"
+                    [nzLabel]="user.name"></nz-option>
+            </nz-select>
+        </div>
+    </div>
+    <div class="row common-card-wrapper">
+        <ng-container *ngFor="let user of filteredUsers | sortBy:'name'">
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                <div class="common-card">
+                    <div class="card-header">
+                        <nz-avatar class="card-avatar" [nzSize]="75" [nzSrc]="imageService.getProfileImage(user?.name)"></nz-avatar>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-title">
+                            {{user.name}}
+                            <span nz-icon [nzType]="'check-circle'" [nzTheme]="'fill'" nz-popover
+                                [style.color]="user.emailVerified ? '#52c41a' : '#d1d1d1'"
+                                [nzPopoverContent]="user.emailVerified ? 'Verified' : 'Pending Verification'"></span>
+                        </div>
+                        <div class="card-text">{{user.email}}</div>
+                        <div class="card-text-tag">
+                            <nz-tag *ngFor="let role of getRoles(user.roles)"
+                                [nzColor]="role.color">{{role.label}}</nz-tag>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="card-action-btn" (click)="edit(user)">
+                            <span nz-icon nzType="edit"></span>
+                        </div>
+                        <div class="card-action-btn" (click)="delete(user.uid)">
+                            <span nz-icon nzType="delete"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+
+    </div>
+</div>
+
+<nz-modal [(nzVisible)]="isVisible" nzMaskClosable="false" [nzTitle]="user.uid ? 'Edit User' : 'Create User'"
+    (nzOnCancel)="closeModal()">
+    <div *nzModalContent>
+        <form nz-form [formGroup]="userForm">
+            <nz-form-item>
+                <nz-form-control>
+                    <nz-form-label nzFor="name">Name</nz-form-label>
+                    <nz-input-group>
+                        <input formControlName="name" nz-input placeholder="Name" [(ngModel)]="user.name" readonly />
+                    </nz-input-group>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-control>
+                    <nz-form-label nzFor="email">Email</nz-form-label>
+                    <nz-input-group>
+                        <input formControlName="email" nz-input [(ngModel)]="user.email" readonly />
+                    </nz-input-group>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-control [nzErrorTip]="roleErrorTip">
+                    <nz-input-group>
+                        <nz-form-label nzRequired nzFor="roles">Roles</nz-form-label>
+                        <nz-select formControlName="roles" [(ngModel)]="user.roles" nzMode="multiple"
+                            nzPlaceHolder="Please select roles">
+                            <nz-option *ngFor="let role of roles" [nzLabel]="role.label"
+                                [nzValue]="role.value"></nz-option>
+                        </nz-select>
+                    </nz-input-group>
+                    <ng-template #roleErrorTip let-control>
+                        <ng-container *ngIf="control.hasError('required')">
+                            <div class="error-message">
+                                <i class="bi bi-exclamation-circle error-icon"></i>
+                                User must have at least one role.
+                            </div>
+                        </ng-container>
+                    </ng-template>
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+                <nz-form-control>
+                    <nz-input-group>
+                        <nz-form-label nzFor="emailVerified">Email Verification Status</nz-form-label>
+                        <label nz-checkbox formControlName="emailVerified" [(ngModel)]="user.emailVerified" nzDisabled>
+                            <span>{{user.emailVerified ? 'Verified' : 'Pending Verification'}}</span>
+                        </label>
+                    </nz-input-group>
+                </nz-form-control>
+            </nz-form-item>
+
+        </form>
+    </div>
+    <div *nzModalFooter>
+        <button nz-button nzType=" default" (click)="closeModal()">Cancel</button>
+        <button nz-button nzType="primary" (click)="createOrUpdate(user)">{{user.uid ? 'Update' : 'Save'}}</button>
+    </div>
+</nz-modal>

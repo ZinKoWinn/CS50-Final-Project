@@ -1,0 +1,11 @@
+<nz-tabset (nzSelectedIndexChange)="onSelectTabChange($event)">
+  <nz-tab *ngFor="let tab of tabs" [nzTitle]="titleTemplate">
+    <ng-template #titleTemplate>
+      <div [id]="getId(tab)">
+        <i [class]="tab.icon"></i>&nbsp;
+        {{ tab.name }}
+      </div>
+    </ng-template>
+    <ng-container *ngTemplateOutlet="tab.content"></ng-container>
+  </nz-tab>
+</nz-tabset>

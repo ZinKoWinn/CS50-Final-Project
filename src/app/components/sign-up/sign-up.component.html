@@ -1,0 +1,122 @@
+<div class="login-wrapper">
+    <nz-spin nzTip="Signing Up" [nzSpinning]="loading" nzSize="large">
+        <div class="login-form">
+            <form nz-form nzLayout="vertical" [formGroup]="signupForm" ngNoForm>
+                <p class="login-header">Sign Up</p>
+                <div *ngIf="errorMessage">
+                    <div class="error mb-3">
+                        <span><i class="bi bi-exclamation-circle error-icon"></i> {{ errorMessage }}</span>
+                    </div>
+                </div>
+                <nz-form-item>
+                    <nz-form-label nzFor="name">Email</nz-form-label>
+                    <nz-form-control [nzErrorTip]="userEmailErrorTip">
+                        <input type="email" nz-input placeholder="Email" formControlName="email" />
+                        <ng-template #userEmailErrorTip let-control>
+                            <ng-container *ngIf="control.hasError('required')">
+                                <div class="error-message">
+                                    <i class="bi bi-exclamation-circle error-icon"></i>
+                                    User email is required.
+                                </div>
+                            </ng-container>
+                            <ng-container *ngIf="control.hasError('email') || control.hasError('pattern')">
+                                <div class="error-message">
+                                    <i class="bi bi-exclamation-circle error-icon"></i>
+                                    User email is invalid. User email must be valid gmail.
+                                </div>
+                            </ng-container>
+                        </ng-template>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item>
+                    <nz-form-label nzFor="name">Name</nz-form-label>
+                    <nz-form-control [nzErrorTip]="userNameErrorTip">
+                        <nz-select nzShowSearch  formControlName="name" nzPlaceHolder="Name">
+                            <nz-option *ngFor="let member of members | sortBy:'name'" [nzValue]="member.name" [nzLabel]="member.name"></nz-option>
+                        </nz-select>
+                        <ng-template #userNameErrorTip let-control>
+                            <ng-container *ngIf="control.hasError('required')">
+                                <div class="error-message">
+                                    <i class="bi bi-exclamation-circle error-icon"></i>
+                                    User name is required.
+                                </div>
+                            </ng-container>
+                        </ng-template>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item>
+                    <nz-form-label nzFor="name">Password</nz-form-label>
+                    <nz-form-control [nzErrorTip]="passwordErrorTip">
+                        <nz-input-group [nzSuffix]="paswordSuffixTemplate" id="password">
+                            <input [type]="passwordVisible ? 'text' : 'password'" nz-input placeholder="Password" formControlName="password" />
+                        </nz-input-group>
+                        <ng-template #paswordSuffixTemplate>
+                            <span nz-icon [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
+                                (click)="passwordVisible = !passwordVisible" id="password-visible-toggle"></span>
+                        </ng-template>
+                        <ng-template #passwordErrorTip let-control>
+                            <ng-container *ngIf="control.hasError('required')">
+                                <div class="error-message">
+                                    <i class="bi bi-exclamation-circle error-icon"></i>
+                                    Password is required.
+                                </div>
+                            </ng-container>
+                            <ng-container *ngIf="control.hasError('minlength')">
+                                <div class="error-message">
+                                    <i class="bi bi-exclamation-circle error-icon"></i>
+                                    Password must be at least 6 characters long.
+                                </div>
+                            </ng-container>
+                        </ng-template>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item>
+                    <nz-form-label nzFor="name">Confirm Password</nz-form-label>
+                    <nz-form-control [nzErrorTip]="confirmPasswordErrorTip">
+                        <nz-input-group [nzSuffix]="confirmPasswordSuffixTemplate" id="confirm-password">
+                            <input [type]="confirmPasswordVisible ? 'text' : 'password'" nz-input placeholder="Confirm password" formControlName="confirmPassword" />
+                        </nz-input-group>
+                        <ng-template #confirmPasswordSuffixTemplate>
+                            <span nz-icon [nzType]="confirmPasswordVisible ? 'eye-invisible' : 'eye'"
+                                (click)="confirmPasswordVisible = !confirmPasswordVisible" id="confirm-password-visible-toggle"></span>
+                        </ng-template>
+                        <ng-template #confirmPasswordErrorTip let-control>
+                            <ng-container *ngIf="control.hasError('required')">
+                                <div class="error-message">
+                                    <i class="bi bi-exclamation-circle error-icon"></i>
+                                    Confirm Password is required.
+                                </div>
+                            </ng-container>
+                            <ng-container *ngIf="control.hasError('minlength')">
+                                <div class="error-message">
+                                    <i class="bi bi-exclamation-circle error-icon"></i>
+                                    Confirm Password must be at least 6 characters long.
+                                </div>
+                            </ng-container>
+                            <ng-container *ngIf="control.hasError('mismatch')">
+                                <div class="error-message">
+                                    <i class="bi bi-exclamation-circle error-icon"></i>
+                                    Password and Confirm Password must match.
+                                </div>
+                            </ng-container>
+                        </ng-template>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item>
+                    <button nz-button nzType="primary" nzBlock class="mt-2" (click)="signUp()">
+                        Sign Up
+                    </button>
+                </nz-form-item>
+            </form>
+            <nz-divider nzPlain nzText="OR"></nz-divider>
+            <nz-form-item [nzJustify]="'center'" id="sign-in">
+                <span>Already have an account? &nbsp;</span>
+                <a class="login-form-forgot" routerLink="/sign-in">Sign In</a>
+            </nz-form-item>
+        </div>
+    </nz-spin>
+</div>

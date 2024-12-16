@@ -1,0 +1,115 @@
+//Note Item
+.team-name {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 10px;
+  margin-bottom: 0px;
+}
+
+.pending-submissions-wrapper {
+  padding: 0px 10px;
+
+  p {
+    width: max-content;
+    cursor: pointer;
+  }
+}
+
+::ng-deep {
+  .meeting-note-collapse.ant-collapse {
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.15);
+    margin: 10px;
+    margin-bottom: 30px;
+
+    .ant-collapse-header {
+      padding: 0 !important;
+
+      .card-header {
+        width: 100%;
+        background-color: #f4f4f4;
+        display: flex;
+        align-items: center;
+        padding: 10px 20px;
+
+        .user-profile {
+          margin-right: 15px;
+          border-radius: 50%;
+          width: 30px;
+          box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        .member-name {
+          flex: 1;
+          font-size: 16px;
+          font-weight: bold;
+        }
+
+        .status {
+          font-size: 14px;
+          color: #ababab;
+        }
+
+        .status::before {
+          content: "";
+          display: inline-block;
+          width: 10px;
+          height: 10px;
+          border-radius: 5px;
+          margin-right: 5px;
+          background-color: #ababab;
+        }
+
+        &.active {
+          .status {
+            color: green;
+          }
+
+          .status::before {
+            background-color: green;
+          }
+        }
+      }
+    }
+
+    .ant-collapse-content .ant-collapse-content-box {
+      padding: 20px;
+      background: #fff;
+
+      .project-wrapper {
+        .project-name {
+          font-weight: bold;
+        }
+
+        .project-details {
+          font-size: 14px;
+          color: #595959;
+
+          li {
+            white-space: pre-line;
+          }
+        }
+      }
+    }
+
+    .no-data-text {
+      text-align: center;
+      opacity: 0.5z;
+    }
+  }
+}
+
+.popover-content {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  overflow-y: auto;
+  padding: 10px;
+  max-height: 50vh;
+  box-sizing: border-box;
+}
+
+.team-column {
+  background: #f0f0f0;
+  padding: 10px;
+  border-radius: 5px;
+}

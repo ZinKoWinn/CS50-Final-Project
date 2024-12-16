@@ -1,0 +1,120 @@
+@import "~bootstrap/dist/css/bootstrap.css";
+@import "https://use.fontawesome.com/releases/v5.5.0/css/all.css";
+@import "assets/styles/colors.scss";
+@import "assets/styles/custom-antd.scss";
+@import "assets/styles/common-layout.scss";
+@import "assets/styles/login-style.scss";
+@import "assets/styles/common-card.scss";
+@import "assets/styles/meeting-note.scss";
+@import "assets/styles/common-error.scss";
+@import '../node_modules/@ngneat/hot-toast/src/styles/styles.scss';
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  // color: $black-color;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-weight: 400;
+  width: 100%;
+  height: 100%;
+  font-family: "Poppins", sans-serif;
+}
+
+//auto fill input box
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: #000000;
+}
+
+//link
+a {
+  color: gray;
+}
+
+// common layout
+.inner-content {
+  padding: 30px 50px;
+  background: #fff;
+  overflow-y: auto;
+  height: calc(100vh - 115px);
+}
+
+.modal-content-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+}
+
+// shortcut info wrapper
+
+.shortcut-info-wrapper {
+  width: max-content;
+  display: flex;
+  flex-direction: column;
+
+  .shortcut-info {
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    color: #000000a6;
+
+    .keycap {
+      background: #e4e4e4;
+      padding: 1px 5px;
+      font-size: 9px;
+      font-weight: bold;
+      border-radius: 3px;
+      box-shadow: 1px 1px #8e8e8e;
+      margin-bottom: 5px;
+    }
+  }
+}
+
+.btn-copy-float {
+  position: absolute;
+  right: 50px;
+  bottom: 60px;
+}
+
+.btn-copy-float-html {
+  position: absolute;
+  right: 100px;
+  bottom: 60px;
+}
+
+.primary-color {
+  color: $primary-color !important;
+}
+
+.user-prefix-icon {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  margin: 5px;
+}
+
+// User profile modal
+
+::ng-deep{
+  .profile-modal {
+      border-radius: 10px;
+
+      .ant-modal-content{
+          border-radius: 15px;
+      }
+      
+      .ant-modal-close-x{
+          color: gray;
+      }
+  }
+}

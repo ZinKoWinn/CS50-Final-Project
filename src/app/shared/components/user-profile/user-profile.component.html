@@ -1,0 +1,37 @@
+<div class="profile-wrapper">
+    <nz-avatar class="profile-img" [nzSize]="100"
+        [nzSrc]="imageService.getProfileImage(authInfo?.user?.name)"></nz-avatar>
+    <span class="name">
+        {{authInfo?.user?.name}}
+        <span nz-icon [nzType]="'check-circle'" [nzTheme]="'fill'" nz-popover
+            [style.color]="authInfo?.user?.emailVerified ? '#52c41a' : '#d1d1d1'"
+            [nzPopoverContent]="authInfo?.user?.emailVerified ? 'Verified' : 'Pending Verification'"></span>
+    </span>
+    <span class="role-name">{{authInfo?.user?.roles.includes('TEAMLEAD_ROLE') ? 'Team Leader':'Team Member'}}</span>
+    <span class="role-tag-wrapper">
+        <nz-tag *ngFor="let role of getRoles(authInfo?.user?.roles)" [nzColor]="role.color">{{role.label}}</nz-tag>
+    </span>
+    <span>{{ teamMember?.team?.displayName }}</span>
+    <span>{{authInfo?.user?.email}}</span>
+    
+    <span style="display: none;" class="change-passoword-text" (click)="showPasswordForm = !showPasswordForm">Change Password?</span>
+    <form [nzLayout] class="row" nz-form *ngIf="showPasswordForm">
+        <nz-form-item class="col-12">
+            <nz-form-control nzErrorTip="Old Password can not be empty">
+                <nz-form-label nzRequired nzFor="old password">Old Password</nz-form-label>
+                <input name="old passowrd" nz-input placeholder="old password" />
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item class="col-12">
+            <nz-form-control nzErrorTip="New Password can not be empty">
+                <nz-form-label nzRequired nzFor="old password">New Password</nz-form-label>
+                <input name="new passowrd" nz-input placeholder="new password" />
+            </nz-form-control>
+        </nz-form-item>
+        <div class="col-12 d-flex justify-content-end">
+            <button nz-button nzType="default" class="me-3"
+                (click)="showPasswordForm = !showPasswordForm">Cancel</button>
+            <button nz-button nzType="primary">Save</button>
+        </div>
+    </form>
+</div>

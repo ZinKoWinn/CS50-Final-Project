@@ -1,0 +1,52 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "forceConsistentCasingInFileNames": true,
+    "strict": false,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": false,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "sourceMap": true,
+    "declaration": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "ES2022",
+    "module": "ES2022",
+    "useDefineForClassFields": false,
+    "lib": [
+      "ES2022",
+      "dom"
+    ],
+    "paths": {
+      "@environment": [
+        "src/environments/environment.ts",
+        "src/environments/environment.production.ts"
+      ],
+      "@component/*": ["src/app/components/*"],
+      "@layout/*": ["src/app/layouts/*"],
+      "@effect/*": ["src/app/store/effects/*"],
+      "@action/*": ["src/app/store/actions/*"],
+      "@selector/*": ["src/app/store/selectors/*"],
+      "@reducer/*": ["src/app/store/reducers/*"],
+      "@state/*": ["src/app/store/state/*"],
+      "@service/*": ["src/app/core/services/*"], 
+      "@model/*": ["src/app/core/models/*"],
+      "@constant/*": ["src/app/core/constants/*"],
+      "@shared/*": ["src/app/shared/*"],
+      "@route/*": ["src/app/app-routes.ts"],
+      "@import": ["src/app/app.import.ts"]
+    },
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": false
+  }
+}

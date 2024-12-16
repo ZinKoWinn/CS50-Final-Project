@@ -1,0 +1,126 @@
+<form [nzLayout] class="row py-3" nz-form [formGroup]="onBehalfOfNoteForm" #oboForm>
+    <nz-form-item class="col-12">
+        <nz-form-control [nzErrorTip]="teamNameErrorTip">
+            <nz-form-label nzRequired>Team Name</nz-form-label>
+            <nz-select formControlName="team" (ngModelChange)="onTeamChange($event)" nzShowSearch nzPlaceHolder="Team Name" [nzAllowClear]="true" [nzSuffixIcon]="'search'">
+                <nz-option nzCustomContent *ngFor="let team of filteredTeams | sortBy:'name'" [nzValue]="team" [nzLabel]="team.displayName">
+                    <img [src]="imageService.getProfileImage(team?.name)" alt="" class="user-prefix-icon">
+                    {{team.displayName}}
+                </nz-option>
+            </nz-select>
+            <ng-template #teamNameErrorTip let-control>
+                <ng-container *ngIf="control.hasError('required')">
+                    <div class="error-message">
+                        <i class="bi bi-exclamation-circle error-icon"></i>
+                        Team name is required.
+                    </div>
+                </ng-container>
+            </ng-template>
+        </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item class="col-12">
+        <nz-form-control [nzErrorTip]="memberNameErrorTip">
+            <nz-form-label nzRequired>Member Name</nz-form-label>
+            <nz-select formControlName="member" (ngModelChange)="onMemberChange($event)" nzShowSearch nzPlaceHolder="Member Name" [nzAllowClear]="true" [nzSuffixIcon]="'search'">
+                <nz-option nzCustomContent *ngFor="let member of team?.members | sortBy:'name'" [nzValue]="member" [nzLabel]="member.name">
+                    <img [src]="imageService.getProfileImage(member?.name)" alt="" class="user-prefix-icon">
+                    {{ member.name }}
+                </nz-option>
+            </nz-select>
+            <ng-template #memberNameErrorTip let-control>
+                <ng-container *ngIf="control.hasError('required')">
+                    <div class="error-message">
+                        <i class="bi bi-exclamation-circle error-icon"></i>
+                        Member name is required.
+                    </div>
+                </ng-container>
+            </ng-template>
+        </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+        <nz-form-control>
+            <label nz-checkbox formControlName="isAbsence">Is Absence (The whole week)</label>
+        </nz-form-control>
+    </nz-form-item>
+
+    <ng-container *ngIf="isAbsence">
+        <nz-form-item class="col-12">
+            <nz-form-control nzErrorTip="Please enter note">
+                <nz-form-label nzRequired nzFor="description">Absence Reason</nz-form-label>
+                <textarea [rows]="5" formControlName="absenceReason" nz-input placeholder="Absence Reason" nz-input placeholder="Ansence Reason"
+                    id="note-input"></textarea>
+            </nz-form-control>
+        </nz-form-item>
+    </ng-container>
+    <ng-container *ngIf="!isAbsence">
+        <nz-form-item class="col-12">
+            <nz-form-control nzErrorTip="Please enter project name">
+                <nz-form-label nzRequired nzFor="email">Project Name</nz-form-label>
+                <input formControlName="projectName" nz-input placeholder="Project Name"
+                id="project-name-input" (input)="onInputProject($event)"
+                [nzAutocomplete]="projectAuto"/>
+            <nz-autocomplete #projectAuto [nzDataSource]="projectOptions" nzBackfill></nz-autocomplete>
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item class="col-12">
+            <nz-form-control nzErrorTip="Please enter note">
+                <nz-form-label nzRequired nzFor="description">Note</nz-form-label>
+                <textarea [rows]="5" formControlName="description" nz-input placeholder="Note"
+                    id="note-input"></textarea>
+            </nz-form-control>
+        </nz-form-item>
+    </ng-container>
+
+    <nz-form-item nz-row>
+        <nz-form-control>
+            <div class="d-flex justify-content-between">
+                <div class="shortcut-info-wrapper">
+                    <div class="shortcut-info">
+                        Submit the meeting note &nbsp;&nbsp;<span class="keycap">Ctrl</span>&nbsp; +
+                        &nbsp;<span class="keycap">Enter</span>
+                    </div>
+                    <div class="shortcut-info">
+                        Clear the metting note &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+                            class="keycap">Ctrl</span>&nbsp; + &nbsp;<span class="keycap">Q</span>
+                    </div>
+                </div>
+                <div class="d-flex gap-3">
+                    <button nz-button nzType="default" class="submit-btn" (click)="cancel()" id="clear">
+                        <span nz-icon nzType="clear"></span>Clear
+                    </button>
+                    <button nz-button nzType="primary" class="submit-btn" (click)="addOrUpdateOnBehalfOfNote()"
+                        id="submit">
+                        <span nz-icon nzType="send"></span>Submit
+                    </button>
+                </div>
+            </div>
+        </nz-form-control>
+    </nz-form-item>
+</form>
+
+<div class="note-submit-prj-wrapper">
+    <ng-container *ngFor="let note of meetingNote?.notes | sortBy:'projectName'">
+        <div class="project-wrapper" *ngIf="note && note.descriptions.length > 0">
+            <div class="project-name">{{note.projectName}}</div>
+            <ul class="project-details">
+                <li *ngFor="let item of note.descriptions">
+                    {{ item.value }}
+                    <span class="note-actions">
+                        <span class="edit-icon" nz-icon nzType="edit" nzTheme="outline"
+                            (click)="editDescription(item)"></span>
+                        <span class="delete-icon" nz-icon nzType="close" nzTheme="outline" nz-popconfirm
+                            nzPopconfirmTitle="Are you sure you want to delete?" nzOkText="Delete"
+                            nzCancelText="Cancel" [nzIcon]="iconTpl"
+                            (nzOnConfirm)="deleteDescription(note, item)"></span>
+                        <ng-template #iconTpl>
+                            <span nz-icon nzType="question-circle-o" style="color: red;"></span>
+                        </ng-template>
+                    </span>
+                </li>
+            </ul>
+        </div>
+    </ng-container>
+</div>
